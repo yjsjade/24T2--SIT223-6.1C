@@ -16,6 +16,12 @@ pipeline {
                 echo 'Running unit tests to ensure code functions as expected'
                 echo 'Running integration test to ensure diff components work together as expected'
                 echo 'using automation tool JUnit or Katalon'
+                emailext(
+                    subject: "Test Successful Pipeline ${BUILD_NUMBER}",
+                    to: 'jingshii.y@gmail.com',
+                    body: "The test completed successfully.",
+                    attachLog: true
+                )
             }
         }
 
@@ -30,6 +36,12 @@ pipeline {
             steps {
                 echo 'Perform a security scan on the code using a tool to identify any vulnerabilities'
                 echo 'using automation tool OWASP ZAP'
+                emailext(
+                    subject: "Scan Successful Pipeline ${BUILD_NUMBER}",
+                    to: 'jingshii.y@gmail.com',
+                    body: "The scan completed successfully.",
+                    attachLog: true
+                )
             }
         }
 
@@ -46,27 +58,6 @@ pipeline {
                 echo 'using automation tool AWS EC2 instance'
 
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline finished successfully!'
-            emailext(
-                subject: "Successful Pipeline ${BUILD_NUMBER}",
-                to: 'jingshii.y@gmail.com',
-                body: "The pipeline completed successfully.",
-                attachLog: true
-            )
-        }
-        failure {
-            echo 'Pipeline failed!'
-            emailext(
-                subject: "Failed Pipeline ${BUILD_NUMBER}",
-                to: 'jingshii.y@gmail.com',
-                body: "Something went wrong. Please check the logs for more details.",
-                attachLog: true
-            )
         }
     }
 }
