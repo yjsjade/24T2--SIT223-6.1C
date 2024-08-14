@@ -51,7 +51,13 @@ pipeline {
     post {
         success {
             echo 'Pipeline finished successfully!'
-            mail bcc: '', body: 'The pipeline completed successfully.', subject: 'Successful Pipeline', to: 'jingshii.y@gmail.com'
+            emailext(
+                subject: "Successful Pipeline ${BUILD_NUMBER}",
+                to: 'jingshii.y@gmail.com',
+                mimeType: 'text/html',
+                body: "The pipeline completed successfully.",
+                attachLog: true
+            )
         }
         
 
