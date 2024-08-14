@@ -55,7 +55,6 @@ pipeline {
                 subject: "Successful Pipeline ${BUILD_NUMBER}",
                 to: 'jingshii.y@gmail.com',
                 body: "The pipeline completed successfully.",
-                attachLog: true
             )
         }
         failure {
@@ -64,7 +63,6 @@ pipeline {
                 subject: "Failed Pipeline ${BUILD_NUMBER}",
                 to: 'jingshii.y@gmail.com',
                 body: "Something went wrong. Please check the logs for more details.",
-                attachLog: true
             )
         }
     }
