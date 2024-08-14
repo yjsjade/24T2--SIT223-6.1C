@@ -51,17 +51,18 @@ pipeline {
     post {
         success {
             echo 'Pipeline finished successfully!'
-            emailext body: 'The pipeline completed successfully.',
-            subject: 'Successful Pipeline',
-            to: 'jingshii.y@gmail.com'
+            emailext(
+                subject: "Successful Pipeline ${BUILD_NUMBER}",
+                to: 'jingshii.y@gmail.com',
+                body: "The pipeline completed successfully.",
+                attachLog: true
+            )
         }
-        
-
         failure {
             echo 'Pipeline failed!'
             emailext(
-                to: 'jingshii.y@gmail.com',
                 subject: "Failed Pipeline ${BUILD_NUMBER}",
+                to: 'jingshii.y@gmail.com',
                 body: "Something went wrong. Please check the logs for more details.",
                 attachLog: true
             )
